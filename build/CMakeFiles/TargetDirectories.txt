@@ -1,0 +1,3 @@
+/Users/divitkalathil/Downloads/CSC481-581_Object _Centric _GameObjects/build/CMakeFiles/ObjectCentricDemo.dir
+/Users/divitkalathil/Downloads/CSC481-581_Object _Centric _GameObjects/build/CMakeFiles/edit_cache.dir
+/Users/divitkalathil/Downloads/CSC481-581_Object _Centric _GameObjects/build/CMakeFiles/rebuild_cache.dir
