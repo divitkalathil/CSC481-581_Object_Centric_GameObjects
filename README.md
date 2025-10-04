@@ -83,10 +83,9 @@ The executable will be created inside the build/ directory.
 ./ObjectCentricDemo
 ```
 
-Controls
-Arrow Keys: For movements
-Escape Key or Window Close Button: Quit the application.
-
+### Controls
+1. WASD Keys: For movements
+2. Escape Key or Window Close Button: Quit the application.
 
 ---
 
