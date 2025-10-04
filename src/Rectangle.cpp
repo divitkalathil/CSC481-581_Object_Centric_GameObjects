@@ -1,5 +1,3 @@
-// src/Rectangle.cpp
-
 #include "Rectangle.hpp"
 
 Rectangle::Rectangle(float x, float y, float w, float h, SDL_Color color) {

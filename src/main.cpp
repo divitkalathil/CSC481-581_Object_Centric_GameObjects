@@ -1,5 +1,3 @@
-// src/main.cpp
-
 #include <SDL3/SDL.h>
 #include <vector>
 #include <memory>
@@ -33,8 +31,6 @@ int main(int argc, char* argv[]) {
 
     std::vector<std::unique_ptr<GameObject>> gameObjects;
 
-    // --- Create Game Objects ---
-    // This now correctly matches the new Rectangle constructor (no vx, vy)
     gameObjects.emplace_back(std::make_unique<Rectangle>(100.0f, 100.0f, 50.0f, 50.0f, SDL_Color{255, 0, 0, 255}));
 
     // --- Game Loop ---
@@ -58,8 +54,6 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        // --- Update ---
-        // CORRECTED LINE: The type is now const bool*
         const bool* keyState = SDL_GetKeyboardState(NULL);
 
         for (const auto& obj : gameObjects) {
