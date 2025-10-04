@@ -362,7 +362,7 @@ code {
 }
 
 </style>
-<link rel="stylesheet" href="file:///Users/divitkalathil/Downloads/CSC481%3A581%20Object%20Centric%20Game%20Object%20Models/R%3A%5C2.Travail%5C1.Enseignement%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css"><link rel="stylesheet" href="file:///Users/divitkalathil/Downloads/CSC481%3A581%20Object%20Centric%20Game%20Object%20Models/D%3A%5Crdaros%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css">
+<link rel="stylesheet" href="file:///Users/divitkalathil/Downloads/CSC481-581_Object%20_Centric%20_GameObjects/R%3A%5C2.Travail%5C1.Enseignement%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css"><link rel="stylesheet" href="file:///Users/divitkalathil/Downloads/CSC481-581_Object%20_Centric%20_GameObjects/D%3A%5Crdaros%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css">
 </head>
 
 <body>
@@ -412,58 +412,55 @@ code {
 </ul>
 <hr>
 <h2 id="project-structure">Project Structure</h2>
-<p>.<br>
-├── CMakeLists.txt<br>
-├── README.md<br>
-└── src/<br>
-├── GameObject.h<br>
-├── GameObject.cpp<br>
-├── Rectangle.h<br>
-├── Rectangle.cpp<br>
-└── main.cpp</p>
+<pre class="hljs"><code><div>.
+├── CMakeLists.txt
+├── README.md
+└── src/
+    ├── GameObject.h
+    ├── GameObject.cpp
+    ├── Rectangle.h
+    ├── Rectangle.cpp
+    └── main.cpp
+</div></code></pre>
 <hr>
 <h2 id="how-to-build-and-run">How to Build and Run</h2>
 <h3 id="1-create-a-build-directory">1. Create a Build Directory</h3>
 <pre class="hljs"><code><div>mkdir build
 <span class="hljs-built_in">cd</span> build
-2. Configure with CMake
-Bash
-
+</div></code></pre>
+<h3 id="2-configure-with-cmake">2. Configure with CMake</h3>
+<pre class="hljs"><code><div>
 cmake ..
-3. Compile the Project
-Bash
-
+</div></code></pre>
+<h3 id="3-compile-the-project">3. Compile the Project</h3>
+<pre class="hljs"><code><div>
 make
-The executable will be created inside the build/ directory.
-
-4. Run the Game
-Bash
-
+</div></code></pre>
+<p>The executable will be created inside the build/ directory.</p>
+<h3 id="4-run-the-game">4. Run the Game</h3>
+<pre class="hljs"><code><div>
 ./ObjectCentricDemo
-Controls
-Escape Key or Window Close Button: Quit the application.
+</div></code></pre>
+<p>Controls<br>
+Arrow Keys: For movements<br>
+Escape Key or Window Close Button: Quit the application.</p>
+<hr>
+<h3 id="cmakeliststxt"><code>CMakeLists.txt</code></h3>
+<p>This build script will find SDL3 and compile the C++ source files into an executable.</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># CMakeLists.txt</span>
 
+<span class="hljs-keyword">cmake_minimum_required</span>(VERSION <span class="hljs-number">3.10</span>)
 
----
+<span class="hljs-keyword">project</span>(ObjectCentricDemo)
+<span class="hljs-keyword">set</span>(CMAKE_CXX_STANDARD <span class="hljs-number">17</span>)
+<span class="hljs-keyword">set</span>(CMAKE_CXX_STANDARD_REQUIRED <span class="hljs-keyword">ON</span>)
 
-<span class="hljs-comment">### 2. `CMakeLists.txt`</span>
+<span class="hljs-comment"># Use pkg-config to find SDL3. This is the most reliable method on macOS.</span>
+<span class="hljs-keyword">find_package</span>(PkgConfig REQUIRED)
+pkg_check_modules(SDL3 REQUIRED IMPORTED_TARGET sdl3)
 
-This build script will find SDL3 and compile the C++ <span class="hljs-built_in">source</span> files into an executable.
-
-```cmake
-<span class="hljs-comment"># Set the minimum required version of CMake</span>
-cmake_minimum_required(VERSION 3.10)
-
-<span class="hljs-comment"># Set the project name and C++ standard</span>
-project(ObjectCentricDemo)
-<span class="hljs-built_in">set</span>(CMAKE_CXX_STANDARD 17)
-<span class="hljs-built_in">set</span>(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-<span class="hljs-comment"># Find the SDL3 library</span>
-find_package(SDL3 REQUIRED)
-
-<span class="hljs-comment"># Create the executable from the source files</span>
-add_executable(
+<span class="hljs-comment"># Create the executable from your source files</span>
+<span class="hljs-keyword">add_executable</span>(
     ObjectCentricDemo
     src/main.cpp
     src/GameObject.cpp
@@ -472,11 +469,12 @@ add_executable(
     <span class="hljs-comment"># src/Circle.cpp</span>
 )
 
-<span class="hljs-comment"># Link the SDL3 library to the executable</span>
-target_link_libraries(ObjectCentricDemo PRIVATE SDL3::SDL3)
+<span class="hljs-comment"># Link the SDL3 library using the target found by pkg-config</span>
+<span class="hljs-comment"># This automatically handles include directories and linker flags.</span>
+<span class="hljs-keyword">target_link_libraries</span>(ObjectCentricDemo PRIVATE PkgConfig::SDL3)
 
-<span class="hljs-comment"># Add the src directory to the include path for easier header access</span>
-target_include_directories(ObjectCentricDemo PRIVATE <span class="hljs-variable">${CMAKE_CURRENT_SOURCE_DIR}</span>/src)
+<span class="hljs-comment"># Also add our own src directory to the include path for cleaner #includes</span>
+<span class="hljs-keyword">target_include_directories</span>(ObjectCentricDemo PRIVATE <span class="hljs-variable">${CMAKE_CURRENT_SOURCE_DIR}</span>/src)
 </div></code></pre>
 
 </body>

@@ -43,17 +43,17 @@ You must have **SDL3** installed on your system.
 ---
 
 ## Project Structure
-
+```
 .
 ├── CMakeLists.txt
 ├── README.md
 └── src/
-├── GameObject.h
-├── GameObject.cpp
-├── Rectangle.h
-├── Rectangle.cpp
-└── main.cpp
-
+    ├── GameObject.h
+    ├── GameObject.cpp
+    ├── Rectangle.h
+    ├── Rectangle.cpp
+    └── main.cpp
+```
 
 ---
 
@@ -63,43 +63,51 @@ You must have **SDL3** installed on your system.
 ```bash
 mkdir build
 cd build
-2. Configure with CMake
-Bash
+```
+### 2. Configure with CMake
+```bash
 
 cmake ..
-3. Compile the Project
-Bash
+```
+### 3. Compile the Project
+```bash
 
 make
+```
+
 The executable will be created inside the build/ directory.
 
-4. Run the Game
-Bash
+### 4. Run the Game
+```bash
 
 ./ObjectCentricDemo
+```
+
 Controls
+Arrow Keys: For movements
 Escape Key or Window Close Button: Quit the application.
 
 
 ---
 
-### 2. `CMakeLists.txt`
+### `CMakeLists.txt`
 
 This build script will find SDL3 and compile the C++ source files into an executable.
 
 ```cmake
-# Set the minimum required version of CMake
+# CMakeLists.txt
+
 cmake_minimum_required(VERSION 3.10)
 
-# Set the project name and C++ standard
 project(ObjectCentricDemo)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Find the SDL3 library
-find_package(SDL3 REQUIRED)
+# Use pkg-config to find SDL3. This is the most reliable method on macOS.
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(SDL3 REQUIRED IMPORTED_TARGET sdl3)
 
-# Create the executable from the source files
+# Create the executable from your source files
 add_executable(
     ObjectCentricDemo
     src/main.cpp
@@ -109,8 +117,10 @@ add_executable(
     # src/Circle.cpp
 )
 
-# Link the SDL3 library to the executable
-target_link_libraries(ObjectCentricDemo PRIVATE SDL3::SDL3)
+# Link the SDL3 library using the target found by pkg-config
+# This automatically handles include directories and linker flags.
+target_link_libraries(ObjectCentricDemo PRIVATE PkgConfig::SDL3)
 
-# Add the src directory to the include path for easier header access
+# Also add our own src directory to the include path for cleaner #includes
 target_include_directories(ObjectCentricDemo PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+```
